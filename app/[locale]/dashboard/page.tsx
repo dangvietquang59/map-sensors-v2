@@ -4,8 +4,10 @@ import { useState, useRef } from "react"
 import SensorMapV2 from "@/components/sensor-map-v2"
 import SensorList from "@/components/sensor-list"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useTranslations } from "next-intl"
 
 export default function DashboardV2() {
+  const t = useTranslations("sensor")
   const [selectedSensorId, setSelectedSensorId] = useState<string | null>(null)
   const sensorMapRef = useRef<any>(null)
 
@@ -19,12 +21,12 @@ export default function DashboardV2() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">Hệ Thống Giám Sát Cảm Biến</h1>
+      <h1 className="text-2xl font-bold mb-6">{t("title")}</h1>
 
       <Tabs defaultValue="map" className="w-full">
         <TabsList className="grid w-full max-w-md grid-cols-2">
-          <TabsTrigger value="map">Bản Đồ</TabsTrigger>
-          <TabsTrigger value="list">Danh Sách</TabsTrigger>
+          <TabsTrigger value="map">{t("map")}</TabsTrigger>
+          <TabsTrigger value="list">{t("list")}</TabsTrigger>
         </TabsList>
         <TabsContent value="map" className="mt-4">
           <div className="border rounded-lg overflow-hidden bg-white">

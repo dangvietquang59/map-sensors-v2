@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { ZoomIn, ZoomOut, Maximize, Layers, Info, Map } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { useTranslations } from "next-intl"
 
 type Sensor = {
   id: string
@@ -40,6 +41,7 @@ interface SensorMapProps {
 }
 
 const SensorMap = forwardRef(({ selectedSensorId }: SensorMapProps, ref) => {
+  const t = useTranslations("sensor")
   const [selectedSensor, setSelectedSensor] = useState<SensorWithDetails | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [mapScale, setMapScale] = useState(0.5)
@@ -172,7 +174,7 @@ const SensorMap = forwardRef(({ selectedSensorId }: SensorMapProps, ref) => {
       <div className="flex gap-2 p-3 bg-white border-b sticky top-0 z-10 shadow-sm">
         <div className="flex items-center gap-2">
           <Map className="h-5 w-5 text-gray-500" />
-          <h2 className="font-medium">Bản Đồ Cảm Biến</h2>
+          <h2 className="font-medium">{t("sensorMap")}</h2>
         </div>
 
         <div className="flex items-center ml-auto gap-1">
@@ -233,7 +235,7 @@ const SensorMap = forwardRef(({ selectedSensorId }: SensorMapProps, ref) => {
 
       <div className="p-2 bg-gray-100 text-sm text-gray-500 flex items-center gap-2">
         <Info className="h-4 w-4" />
-        <span>Sử dụng cuộn chuột để phóng to/thu nhỏ và nhấn giữ để di chuyển bản đồ</span>
+        <span>{t("useMouse")}</span>
       </div>
 
       <div

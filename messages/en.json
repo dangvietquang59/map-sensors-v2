@@ -1,0 +1,16 @@
+{
+    "sensor": {
+      "title": "Sensor Monitoring System",
+      "map": "Map",
+      "list": "List",
+      "sensorMap": "Sensor Map",
+      "useMouse": "Use mouse scroll to zoom in/out and click-drag to move the map"
+    },
+    "language": {
+  "vn": "Vietnamese",
+  "zh": "Chinese",
+  "en": "English"
+}
+
+  }
+  

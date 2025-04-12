@@ -1,0 +1,14 @@
+{
+    "sensor":{
+        "title":"Hệ Thống Giám Sát Cảm Biến",
+        "map":"Bản đồ",
+        "list":"Danh sách",
+        "sensorMap":"Bản đồ cảm biến",
+        "useMouse":"Sử dụng cuộn chuột để phóng to/thu nhỏ và nhấn giữ để di chuyển bản đồ"
+    },
+    "language":{
+        "vn":"Tiếng Việt",
+        "zh":"Tiếng Trung",
+        "en":"Tiếng Anh"
+    }
+}
