@@ -13,6 +13,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import SensorDetailCard from "./sensor-detail-card"
 import AnimatedSensor from "./animated-sensor"
 import { useTranslations } from "next-intl"
+import images from "@/assets/images"
+import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart"
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 
 type Sensor = {
   id: string
@@ -178,7 +181,24 @@ const SensorMapV2 = forwardRef(({ selectedSensorId }: SensorMapProps, ref) => {
         return "bg-gray-500"
     }
   }
-
+  const chartData = [
+    { month: "January", desktop: 186, mobile: 80 },
+    { month: "February", desktop: 305, mobile: 200 },
+    { month: "March", desktop: 237, mobile: 120 },
+    { month: "April", desktop: 73, mobile: 190 },
+    { month: "May", desktop: 209, mobile: 130 },
+    { month: "June", desktop: 214, mobile: 140 },
+  ]
+  const chartConfig = {
+    desktop: {
+      label: "Desktop",
+      color: "hsl(var(--chart-1))",
+    },
+    mobile: {
+      label: "Mobile",
+      color: "hsl(var(--chart-2))",
+    },
+  } satisfies ChartConfig
   return (
     <div className="relative overflow-hidden h-[80vh] bg-gray-50">
       <div className="flex gap-2 p-3 bg-white border-b sticky top-0 z-10 shadow-sm">
@@ -271,7 +291,7 @@ const SensorMapV2 = forwardRef(({ selectedSensorId }: SensorMapProps, ref) => {
           }}
         >
           <Image
-            src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/floor-plan-4bDm0VuxyQdwpgd5q1rehfoBKsuCl6.png"
+            src={images.sensorMap}
             alt="Sơ đồ mặt bằng"
             fill
             style={{ objectFit: "contain" }}
@@ -308,7 +328,7 @@ const SensorMapV2 = forwardRef(({ selectedSensorId }: SensorMapProps, ref) => {
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-[1000px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <div
@@ -317,17 +337,61 @@ const SensorMapV2 = forwardRef(({ selectedSensorId }: SensorMapProps, ref) => {
               Thông số cảm biến {selectedSensor?.id}
             </DialogTitle>
           </DialogHeader>
-          {selectedSensor && (
-            <SensorDetailCard
-              id={selectedSensor.id}
-              temperature={selectedSensor.temperature}
-              humidity={selectedSensor.humidity}
-              status={selectedSensor.status}
-              lastUpdated={selectedSensor.lastUpdated}
-              x={selectedSensor.x}
-              y={selectedSensor.y}
+          <div className="grid grid-cols-2 gap-[10px]">
+            {selectedSensor && (
+              <SensorDetailCard
+                id={selectedSensor.id}
+                temperature={selectedSensor.temperature}
+                humidity={selectedSensor.humidity}
+                status={selectedSensor.status}
+                lastUpdated={selectedSensor.lastUpdated}
+                x={selectedSensor.x}
+                y={selectedSensor.y}
+              />
+            )}
+            <div>
+              <h2 className="font-semibold">Thông số theo giờ</h2>
+              <ChartContainer config={chartConfig}>
+          <AreaChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 12,
+              right: 12,
+            }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
             />
-          )}
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="dot" />}
+            />
+            <Area
+              dataKey="mobile"
+              type="natural"
+              fill="var(--color-mobile)"
+              fillOpacity={0.4}
+              stroke="var(--color-mobile)"
+              stackId="a"
+            />
+            <Area
+              dataKey="desktop"
+              type="natural"
+              fill="var(--color-desktop)"
+              fillOpacity={0.4}
+              stroke="var(--color-desktop)"
+              stackId="a"
+            />
+          </AreaChart>
+        </ChartContainer>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

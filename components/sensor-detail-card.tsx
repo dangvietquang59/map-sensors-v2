@@ -62,7 +62,7 @@ export default function SensorDetailCard({ id, temperature, humidity, status, la
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-2">
+      {/* <div className="grid grid-cols-2 gap-2">
         <div className="bg-gray-50 p-3 rounded-lg border">
           <div className="text-sm text-gray-500">Tọa độ X</div>
           <div className="font-medium">{x}</div>
@@ -71,7 +71,7 @@ export default function SensorDetailCard({ id, temperature, humidity, status, la
           <div className="text-sm text-gray-500">Tọa độ Y</div>
           <div className="font-medium">{y}</div>
         </div>
-      </div>
+      </div> */}
 
       <div className="bg-gray-50 p-3 rounded-lg border">
         <div className="text-sm text-gray-500">Cập nhật lần cuối</div>

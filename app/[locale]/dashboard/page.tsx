@@ -5,6 +5,7 @@ import SensorMapV2 from "@/components/sensor-map-v2"
 import SensorList from "@/components/sensor-list"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useTranslations } from "next-intl"
+import LanguageSelector from "@/components/LanguageSelector"
 
 export default function DashboardV2() {
   const t = useTranslations("sensor")
@@ -21,7 +22,10 @@ export default function DashboardV2() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">{t("title")}</h1>
+     <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold mb-6">{t("title")}</h1>
+        <LanguageSelector/>
+     </div>
 
       <Tabs defaultValue="map" className="w-full">
         <TabsList className="grid w-full max-w-md grid-cols-2">
