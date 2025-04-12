@@ -88,25 +88,19 @@ const SensorMapV2 = forwardRef(({ selectedSensorId }: SensorMapProps, ref) => {
     setIsDialogOpen(true)
   }
 
-  const getSensorColor = (sensorId: string, status: string) => {
+  const getSensorColor = (sensorId: string) => {
     // Màu cơ bản dựa trên loại cảm biến
     let baseColor = ""
 
-    if (sensorId.includes("B-TH")) {
-      baseColor = "#ef4444" // red-500
-    } else if (sensorId.includes("G-TH")) {
+    if (sensorId.includes("-2F")) {
+      baseColor = "#3b82f6" // red-500
+    } else if (sensorId.includes("-1F")) {
       baseColor = "#22c55e" // green-500
     } else {
-      baseColor = "#3b82f6" // blue-500
+      baseColor = "#ef4444" // blue-500
     }
 
-    // Điều chỉnh màu dựa trên trạng thái
-    if (status === "warning") {
-      return "#f59e0b" // amber-500
-    } else if (status === "critical") {
-      return "#dc2626" // red-600
-    }
-
+  
     return baseColor
   }
 
@@ -298,7 +292,7 @@ const SensorMapV2 = forwardRef(({ selectedSensorId }: SensorMapProps, ref) => {
             >
               <AnimatedSensor
                 id={sensor.id}
-                color={getSensorColor(sensor.id, sensor.status)}
+                color={getSensorColor(sensor.id)}
                 size={Math.max(15, sensor.width * mapScale)}
                 onClick={() => handleSensorClick(sensor)}
               />
